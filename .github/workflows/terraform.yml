@@ -1,25 +1,23 @@
 name: Terraform CI/CD Pipeline
 
 on:
-  push:
-    branches:
-      - main
-  inputs:
-    username:
-      required: true
-      type: string
-      description: 'username for go mod init'
-      default: 'alexplayer15'
-    directory:
-      required: true
-      type: string
-      description: 'directory for go mod init'
-      default: 'terratest_poc'
-    terraform_version: 
-      required: true
-      type: string
-      description: 'terraform version to use'
-      default: '1.6.0'
+  workflow_dispatch:
+    inputs:
+      username:
+        required: true
+        type: string
+        description: 'username for go mod init'
+        default: 'alexplayer15'
+      directory:
+        required: true
+        type: string
+        description: 'directory for go mod init'
+        default: 'terratest_poc'
+      terraform_version: 
+        required: true
+        type: string
+        description: 'terraform version to use'
+        default: '1.6.0'
 
 
 jobs:
