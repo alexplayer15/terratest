@@ -1,0 +1,69 @@
+name: Terraform CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  inputs:
+    username:
+      required: true
+      type: string
+      description: 'username for go mod init'
+      default: 'alexplayer15'
+    directory:
+      required: true
+      type: string
+      description: 'directory for go mod init'
+      default: 'terratest_poc'
+    terraform_version: 
+      required: true
+      type: string
+      description: 'terraform version to use'
+      default: '1.6.0'
+
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: '1.23.0' 
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: ${{ inputs.terraform_version }}
+
+    - name: Install Terratest Dependencies
+      run: |
+        go mod init github.com/${{ inputs.username }}/${{ inputs.directory }}
+        go mod tidy
+        go mod vendor
+
+    - name: Run Terratest
+      run: |
+        go test -v -timeout 30m ./test/...
+
+    - name: Terraform init
+      run: |
+        terraform init
+
+    - name: Terraform validate
+      shell: 'bash'
+      run: |
+        terraform validate
+
+    - name: Terraform plan 
+      run: |
+        terraform plan
+
+    - name: Apply Terraform
+      if: success()
+      run: |
+        terraform apply --auto-approve
