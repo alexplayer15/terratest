@@ -13,12 +13,12 @@ variable "vpc_CIDR" {
     description = "VPC to host lb for terratest"
 }
 
-variable "subnet_CIDR" {
+variable "terratest_subnet_CIDR" {
     type = string 
     description = "subnet to host lb for terratest"
 }
 
-variable subnet_CIDR_2 {
+variable terratest_subnet_CIDR_2 {
     type = string 
     description = "second subnet to host lb for terratest"
 }
