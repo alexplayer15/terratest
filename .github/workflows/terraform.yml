@@ -45,7 +45,8 @@ jobs:
 
     - name: Run Terratest
       run: |
-        go test -v -timeout 30m ../../test
+        cd test
+        go test -v -timeout 30m ./...
 
     - name: Terraform init
       run: |
