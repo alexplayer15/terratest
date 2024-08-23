@@ -1,23 +1,24 @@
-variable "vpc_CIDR" {
-    type = string 
-    description = "VPC to host lb for terratest"
-}
-
-variable "subnet_CIDR" {
+variable "terratest_subnet_id" {
     type = string 
     description = "subnet to host lb for terratest"
 }
 
-variable "subnet_CIDR_2" {
+variable "terratest_subnet_id_2" {
     type = string 
     description = "second subnet to host lb for terratest"
 }
 
-variable "allow_all_CIDR" {
-    default = "0.0.0.0/0"
+variable "main_vpc_id" {
+    type = string
+    description = "main vpc id"
 }
 
-variable "route53_zone_id" {
-  description = "Route 53 Zone ID"
-  type        = string
+variable "web_server_id" {
+    type = string 
+    description = "id of ec2 instance"
+}
+
+variable "allow_all_sg_id" {
+    type = string
+    description = "sg allowing all traffic in and out"
 }

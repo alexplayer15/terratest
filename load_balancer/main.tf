@@ -1,84 +1,49 @@
 resource "aws_lb" "terratest_lb" {
-  name = "example-${var.route53_zone_id}"
+  name = "terratest-lb"
   internal           = false
   load_balancer_type = "application"
-  subnets = [aws_subnet.terratest_subnet.id,aws_subnet.terratest_subnet_2.id]
+  subnets = [var.terratest_subnet_id, var.terratest_subnet_id_2]
+  security_groups    = [var.allow_all_sg_id]
 
   tags = {
-    Name = "example-lb-${var.route53_zone_id}"
+    Name = "Terratest"
   }
   enable_deletion_protection = false 
+
+  depends_on = [
+    var.terratest_subnet_id, var.terratest_subnet_id_2
+  ]
 }
 
 resource "aws_lb_listener" "http_terratest_listener" {
   load_balancer_arn = aws_lb.terratest_lb.arn
-  port              = "80"
-  protocol          = "HTTP"
+  port              = local.http_port
+  protocol          = local.http_protocol
 
   default_action {
-    type = "fixed-response"
-    fixed_response {
-      content_type = "text/plain"
-      message_body = "Hello, world"
-      status_code  = "200"
-    }
-  }
-
-  depends_on = [aws_lb.terratest_lb]
-}
-
-resource "aws_vpc" "main" {
-  cidr_block       = var.vpc_CIDR
-  instance_tenancy = "default"
-
-  tags = {
-    Name = "Terratest"
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.terratest-tg.arn
   }
 }
 
-resource "aws_subnet" "terratest_subnet" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = var.subnet_CIDR
-  availability_zone = "eu-west-2a"
+resource "aws_lb_target_group" "terratest-tg" {
+  name     = "terratest-tg"
+  port     = local.http_port
+  protocol = local.http_protocol
+  vpc_id   = var.main_vpc_id
 
-  tags = {
-    Name = "Terratest"
+  health_check {
+    path                = "/"
+    interval            = 30
+    timeout             = 5
+    healthy_threshold   = 2
+    unhealthy_threshold = 2
+    matcher             = "200-299"
   }
 }
 
-resource "aws_subnet" "terratest_subnet_2" {
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = var.subnet_CIDR_2
-  availability_zone = "eu-west-2b"
-}
-
-resource "aws_internet_gateway" "pubsub_igw" {
-  vpc_id = aws_vpc.main.id
-
-  tags = {
-    Name = "Terratest"
-  }
-}
-
-resource "aws_route_table" "public_table" {
-  vpc_id = aws_vpc.main.id
-
-  route {
-    cidr_block = var.allow_all_CIDR
-    gateway_id = aws_internet_gateway.pubsub_igw.id
-  }
-
-  tags = {
-    Name = "example"
-  }
-}
-
-resource "aws_route_table_association" "public_association" {
-  subnet_id      = aws_subnet.terratest_subnet.id
-  route_table_id = aws_route_table.public_table.id
-}
-
-resource "aws_route_table_association" "public_association_2" {
-  subnet_id      = aws_subnet.terratest_subnet_2.id
-  route_table_id = aws_route_table.public_table.id
+resource "aws_lb_target_group_attachment" "terratest-tga" {
+  target_group_arn = aws_lb_target_group.terratest-tg.arn
+  target_id        = var.web_server_id
+  port             = 80
 }
