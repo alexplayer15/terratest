@@ -31,10 +31,10 @@ func validate(t *testing.T, opts *terraform.Options, resourceUrl string){
 
 func TestResourceIsRunning(t *testing.T){
 
-	terraformOptions := &terraform.Options{
+	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: "../main",
     	Vars:         map[string]interface{}{},
-	}
+	})
 
 	defer terraform.Destroy(t, terraformOptions)
 	terraform.InitAndApply(t, terraformOptions)
