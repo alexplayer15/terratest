@@ -1,3 +1,12 @@
+terraform {
+  backend "s3" {
+    bucket         = "terratest-backend"  
+    key            = "terraform.tfstate"  
+    region         = "eu-west-2"                
+    encrypt        = true                   
+  }
+}
+
 module "web_server" {
   source = "../ec2_instance"
   terratest_subnet_id = module.network.terratest_subnet_id
