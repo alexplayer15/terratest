@@ -4,15 +4,15 @@ module "web_server" {
   allow_all_sg_id = module.security.allow_all_sg_id
 }
 
-module "load_balancer" {
-  source = "../load_balancer"
-  terratest_subnet_id = module.network.terratest_subnet_id
-  terratest_subnet_id_2 = module.network.terratest_subnet_id_2
-  web_server_id = module.web_server.web_server_id
-  main_vpc_id = module.network.main_vpc_id
-  allow_all_sg_id = module.security.allow_all_sg_id
+# module "load_balancer" {
+#   source = "../load_balancer"
+#   terratest_subnet_id = module.network.terratest_subnet_id
+#   terratest_subnet_id_2 = module.network.terratest_subnet_id_2
+#   web_server_id = module.web_server.web_server_id
+#   main_vpc_id = module.network.main_vpc_id
+#   allow_all_sg_id = module.security.allow_all_sg_id
 
-}
+# }
 
 # module "dns" {
 #   source = "../dns"

@@ -22,14 +22,14 @@ import (
 // 	assert.NotContains(t, planOutput, replacementMsg, "expected a replacement in the plan output")
 // }
 
-func validate(t *testing.T, opts *terraform.Options){
-	lbUrl := terraform.Output(t, opts, "lb_url")
-	url := fmt.Sprintf("http://%s", lbUrl)
+func validate(t *testing.T, opts *terraform.Options, resourceUrl string){
+	resourceUrlOutput := terraform.Output(t, opts, resourceUrl)
+	url := fmt.Sprintf("http://%s", resourceUrlOutput)
 	expectedResponseBody := "<h1>Hello World!</h1>"
 	http_helper.HttpGetWithRetry(t, url, nil, 200, expectedResponseBody, 10, 3*time.Second)
 }
 
-func TestLoadBalancerIsRunning(t *testing.T){
+func TestResourceIsRunning(t *testing.T){
 
 	terraformOptions := &terraform.Options{
 		TerraformDir: "../main",
@@ -38,7 +38,7 @@ func TestLoadBalancerIsRunning(t *testing.T){
 
 	defer terraform.Destroy(t, terraformOptions)
 	terraform.InitAndApply(t, terraformOptions)
-	validate(t, terraformOptions)
+	validate(t, terraformOptions, "web_server_ip")
 }
 
 // func TestLoadBalancerIsReplaced(t *testing.T){
