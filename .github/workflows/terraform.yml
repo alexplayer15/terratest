@@ -58,17 +58,20 @@ jobs:
 
     - name: Terraform init
       run: |
+        cd main
         terraform init
 
     - name: Terraform validate
       run: |
+        cd main
         terraform validate
 
     - name: Terraform plan 
       run: |
+        cd main
         terraform plan
 
     - name: Apply Terraform
-      if: success()
       run: |
+        cd main
         terraform apply --auto-approve
