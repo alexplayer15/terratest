@@ -76,9 +76,9 @@ jobs:
         cd main
         terraform apply --auto-approve
     
-    - name: Destroy Terraform 
-      run: |
-        cd main
-         terraform destroy --auto-approve
+    # - name: Destroy Terraform 
+    #   run: |
+    #     cd main
+    #      terraform destroy --auto-approve
 
 
