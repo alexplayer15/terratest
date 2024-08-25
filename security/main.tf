@@ -18,5 +18,4 @@ resource "aws_security_group" "allow_all" {
     protocol         = var.allow_all_protocol
     cidr_blocks      = [var.allow_all_CIDR]
   }
-
 }

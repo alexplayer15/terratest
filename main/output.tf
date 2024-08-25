@@ -9,3 +9,7 @@ output web_server_ip {
 # output "route53_zone_id" {
 #   value = module.dns.route53_zone_id
 # }
+
+output "current_workspace" {
+  value = terraform.workspace
+}

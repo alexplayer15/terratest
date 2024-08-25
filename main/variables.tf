@@ -27,3 +27,8 @@ variable route53_zone_id {
     type = string 
     description = "zone id"
 }
+
+variable "instance_type" {
+    type = string 
+    description = "instance type used by web server"
+}

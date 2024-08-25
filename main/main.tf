@@ -11,18 +11,19 @@ module "web_server" {
   source = "../ec2_instance"
   terratest_subnet_id = module.network.terratest_subnet_id
   allow_all_sg_id = module.security.allow_all_sg_id
+  instance_type = var.instance_type
 }
 
-module "load_balancer" {
-  source = "../load_balancer"
-  terratest_subnet_id = module.network.terratest_subnet_id
-  terratest_subnet_id_2 = module.network.terratest_subnet_id_2
-  web_server_id = module.web_server.web_server_id
-  main_vpc_id = module.network.main_vpc_id
-  allow_all_sg_id = module.security.allow_all_sg_id
-  http_port = local.http_port
-  http_protocol = local.http_protocol
-}
+# module "load_balancer" {
+#   source = "../load_balancer"
+#   terratest_subnet_id = module.network.terratest_subnet_id
+#   terratest_subnet_id_2 = module.network.terratest_subnet_id_2
+#   web_server_id = module.web_server.web_server_id
+#   main_vpc_id = module.network.main_vpc_id
+#   allow_all_sg_id = module.security.allow_all_sg_id
+#   http_port = local.http_port
+#   http_protocol = local.http_protocol
+# }
 
 # module "dns" {
 #   source = "../dns"

@@ -8,3 +8,8 @@ variable "allow_all_sg_id" {
     description = "allow all sg id"
 }
 
+variable "instance_type" {
+  type = string 
+  description = "instance type used by web server"
+}
+
