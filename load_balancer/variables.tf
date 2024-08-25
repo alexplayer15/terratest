@@ -22,3 +22,13 @@ variable "allow_all_sg_id" {
     type = string
     description = "sg allowing all traffic in and out"
 }
+
+variable "http_port" {
+  description = "HTTP port"
+  type        = string
+}
+
+variable "http_protocol" {
+  description = "HTTP protocol"
+  type        = string
+}

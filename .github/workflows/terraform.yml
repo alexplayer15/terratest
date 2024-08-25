@@ -80,5 +80,3 @@ jobs:
       run: |
         cd main
          terraform destroy --auto-approve
-
-

@@ -17,8 +17,8 @@ resource "aws_lb" "terratest_lb" {
 
 resource "aws_lb_listener" "http_terratest_listener" {
   load_balancer_arn = aws_lb.terratest_lb.arn
-  port              = local.http_port
-  protocol          = local.http_protocol
+  port              = var.http_port
+  protocol          = var.http_protocol
 
   default_action {
     type             = "forward"
@@ -28,8 +28,8 @@ resource "aws_lb_listener" "http_terratest_listener" {
 
 resource "aws_lb_target_group" "terratest-tg" {
   name     = "terratest-tg"
-  port     = local.http_port
-  protocol = local.http_protocol
+  port     = var.http_port
+  protocol = var.http_protocol
   vpc_id   = var.main_vpc_id
 
   health_check {

@@ -12,3 +12,8 @@ variable "vpc_CIDR" {
     type = string 
     description = "VPC to host lb for terratest"
 }
+
+variable "allow_all_CIDR" {
+  description = "CIDR block that allows all traffic"
+  type        = string
+}
