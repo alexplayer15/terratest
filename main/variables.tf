@@ -28,7 +28,11 @@ variable route53_zone_id {
     description = "zone id"
 }
 
-variable "instance_type" {
-    type = string 
-    description = "instance type used by web server"
+variable "instance_types" {
+  type = map(string)
+  description = "instance types to use depending on environment"
+  default = {
+    dev = "t2.micro",
+    prod = "t3.micro"
+  }
 }

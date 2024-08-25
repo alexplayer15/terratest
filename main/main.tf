@@ -11,7 +11,8 @@ module "web_server" {
   source = "../ec2_instance"
   terratest_subnet_id = module.network.terratest_subnet_id
   allow_all_sg_id = module.security.allow_all_sg_id
-  instance_type = var.instance_type
+  environment = local.environment
+  instance_type = local.instance_type
 }
 
 # module "load_balancer" {
