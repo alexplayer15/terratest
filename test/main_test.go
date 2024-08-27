@@ -32,7 +32,7 @@ func TestResourceIsRunning(t *testing.T){
 	validate(t, terraformOptions, "web_server_ip")
 }
 
-func TestResourceIsNotReplacedAndRunning(t *testing.T) {
-	t.Run("TestResourceIsReplaced", TestResourceIsReplaced)
-	t.Run("TestResourceIsRunning", TestResourceIsRunning)
-}
+// func TestResourceIsNotReplacedAndRunning(t *testing.T) {
+// 	t.Run("TestResourceIsReplaced", TestResourceIsReplaced)
+// 	t.Run("TestResourceIsRunning", TestResourceIsRunning)
+// }
