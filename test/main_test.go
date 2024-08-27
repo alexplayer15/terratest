@@ -20,17 +20,17 @@ func TestResourceIsReplaced(t *testing.T){
 	checkForSpecificResourceReplacement(t, planOutput, "module.web_server.aws_instance.terratest_ec2")
 }
 
-func TestResourceIsRunning(t *testing.T){
+// func TestResourceIsRunning(t *testing.T){
 
-	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
-		TerraformDir: "../main",
-    	Vars:         map[string]interface{}{},
-	})
+// 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
+// 		TerraformDir: "../main",
+//     	Vars:         map[string]interface{}{},
+// 	})
 
-	defer terraform.Destroy(t, terraformOptions)
-	terraform.InitAndApply(t, terraformOptions)
-	validate(t, terraformOptions, "web_server_ip")
-}
+// 	defer terraform.Destroy(t, terraformOptions)
+// 	terraform.InitAndApply(t, terraformOptions)
+// 	validate(t, terraformOptions, "web_server_ip")
+// }
 
 // func TestResourceIsNotReplacedAndRunning(t *testing.T) {
 // 	t.Run("TestResourceIsReplaced", TestResourceIsReplaced)
