@@ -14,7 +14,7 @@ resource "aws_instance" "terratest_ec2" {
         yum install -y httpd
         systemctl start httpd
         systemctl enable httpd
-        echo "<h1>Hello World!</h1>" > /var/www/html/index.html
+        echo "<h1>Hello World Test!</h1>" > /var/www/html/index.html
     EOF
 }
 
