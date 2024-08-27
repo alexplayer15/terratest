@@ -1,4 +1,4 @@
-variable "terratest_subnet_id" {
+variable "terratest_subnet_id_2" {
   type = string
   description = "subnet id for subnet containing instance"
 }
