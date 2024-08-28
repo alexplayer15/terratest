@@ -9,7 +9,7 @@ terraform {
 
 module "web_server" {
   source = "../ec2_instance"
-  terratest_subnet_id_2 = module.network.terratest_subnet_id_2
+  terratest_subnet_id = module.network.terratest_subnet_id
   allow_all_sg_id = module.security.allow_all_sg_id
   environment = local.environment
   instance_type = local.instance_type

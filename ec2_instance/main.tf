@@ -1,7 +1,7 @@
 resource "aws_instance" "terratest_ec2" {
     ami = "ami-0b25f6ba2f4419235"
     instance_type = var.instance_type
-    subnet_id = var.terratest_subnet_id_2
+    subnet_id = var.terratest_subnet_id
     vpc_security_group_ids = [var.allow_all_sg_id]
 
     tags = {
