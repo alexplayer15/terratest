@@ -68,7 +68,7 @@ jobs:
 
     - name: Run Terratest
       run: |
-        cd test
+        cd terratest
         go test -v -timeout 30m ./...
 
     # - name: Apply Terraform
