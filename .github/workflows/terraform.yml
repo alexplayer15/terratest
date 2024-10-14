@@ -46,6 +46,21 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: 'eu-west-2'  
 
+    - name: Terraform init
+      run: |
+        cd main
+        terraform init
+
+    # - name: Terraform validate
+    #   run: |
+    #     cd main
+    #     terraform validate
+
+    - name: Terraform plan 
+      run: |
+        cd main
+        terraform plan
+
     - name: Install Terratest Dependencies
       run: |
         go mod init github.com/${{ inputs.username }}/${{ inputs.directory }}
@@ -56,25 +71,10 @@ jobs:
         cd test
         go test -v -timeout 30m ./...
 
-    - name: Terraform init
-      run: |
-        cd main
-        terraform init
-
-    - name: Terraform validate
-      run: |
-        cd main
-        terraform validate
-
-    - name: Terraform plan 
-      run: |
-        cd main
-        terraform plan
-
-    - name: Apply Terraform
-      run: |
-        cd main
-        terraform apply --auto-approve
+    # - name: Apply Terraform
+    #   run: |
+    #     cd main
+    #     terraform apply --auto-approve
     
     # - name: Destroy Terraform 
     #   run: |
