@@ -10,11 +10,10 @@ func TestResourceIsReplaced(t *testing.T){
 
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: "../main",
-    	Vars:         map[string]interface{}{},
 		PlanFilePath: "../terraform.plan",
 	})
 
-	planOutput := terraform.InitAndPlanAndShowWithStruct(t, terraformOptions)
+	planOutput := terraform.ShowWithStruct(t, terraformOptions)
 	t.Logf("Resources in plan: %v", planOutput.ResourceChangesMap)
 
 	checkForSpecificResourceReplacement(t, planOutput, "module.web_server.aws_instance.terratest_ec2")
