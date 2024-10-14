@@ -5,5 +5,3 @@
 *.tar.gz
 *.tgz
 *.exe
-go.mod
-go.sum
