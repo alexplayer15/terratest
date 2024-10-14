@@ -17,7 +17,7 @@ on:
         required: true
         type: string
         description: 'terraform version to use'
-        default: '1.6.0'
+        default: '1.9.5'
 
 
 jobs:
